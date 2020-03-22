@@ -6,7 +6,7 @@ CRISP-DM:
 ![](./viz/CRISP-DM.svg)
 
 <p align="center">
-  <img src="/viz/CRISP-DM.png">
+  <img src="/viz/CRISP-DM.png" width="600" height="600">
 </p>
 
 Source: (https://www.kaggle.com/airbnb/seattle/data)
