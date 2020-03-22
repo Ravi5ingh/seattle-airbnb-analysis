@@ -73,8 +73,56 @@ missing values in price but what we care about the following columns:
 Let's see if any of them have missing values (They don't):
 ![](./viz/jupyter/calendar_null_check.PNG)
 
+### Data Preparation & Modelling
+The next step is to prepare the data for modelling. For this one needs to  select, clean, construct, and format
+the data. In our case we just need to select, and construct the data. What we want to know is : 
+For every day, how many rooms were listed and how many were booked.
 
+The way we do this is by iterating through the whole date range and plotting how many properties were listed
+on that day and how many properties were booked that day. The following is the code to do this
 
+```python
+import import_ipynb
+from util import *
+from datetime import timedelta
+
+# This is what we want to populate and plot
+listing_data = pd.DataFrame(columns=['date', 'total', 'booked'])
+
+calendar = pd.read_csv('../data/calendar.csv', parse_dates=['date']).pipe(reduce_mem_usage)
+
+# These are the min and max dates in calendar (worked out earlier)
+current_date = min(calendar['date'])
+end_date = max(calendar['date'])
+
+while current_date <= end_date:
+
+    todays_listings = calendar[calendar['date'] == current_date]
+
+    total = row_count(todays_listings)
+    booked = row_count(todays_listings[todays_listings['available'] == 'f'])
+
+    listing_data = listing_data.append({'date': current_date, 'total': total, 'booked': booked}, ignore_index = True)
+
+    if(current_date.day == 1):
+        print('Data collected for ' + str(current_date))
+
+    current_date = current_date + timedelta(days=1)
+
+standardize_plot_fonts()
+
+plot = listing_data.plot(x='date')
+plot.set_xlabel('Date')
+plot.set_ylabel('Number of rooms booked')
+plot.set_title('Bookings over the year')
+
+plt.show()
+```
+The following is the resulting plot:
+
+![](viz/BookingsOverYear.png)
+
+In this case, the modelling step is very small because all we're doing is generating a plot which you can see above
 
 
 
