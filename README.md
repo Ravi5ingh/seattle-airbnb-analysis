@@ -1,5 +1,28 @@
 # Analysis of Seattle's Airbnb Data
-Analysis of Airbnb data for Seattle. Source: (https://www.kaggle.com/airbnb/seattle/data)
+The purpose of this project is to perform data mining on the Airbnb dataset for Seattle. This
+has to be done in accordance with the CRISP-DM methodology. To start off, here is a visualization of 
+CRISP-DM:
+
+![](./viz/CRISP-DM.png)
+
+Source: (https://www.kaggle.com/airbnb/seattle/data)
+
+
+
+## What does the annual business lifecycle look like?
+In order to try and understand how CRISP-DM works, I decided to try the cycle with a simple task. The aim
+is to understand what the airbnb business looks like in Seattle.
+
+### Business Understanding
+The first
+
+To understand this, we first visualize what the room bookings throughout the year look like.
+The following plot shows this:
+
+![Airbnb](./viz/BookingsOverYear.png)
+
+
+
 
 ## Calendar Data
 The first thing that strikes me is that there is a lot of missing data in the price column so I decided

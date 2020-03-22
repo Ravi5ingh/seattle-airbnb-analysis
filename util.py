@@ -1,5 +1,27 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import datetime
+from datetime import timedelta
+
+def row_count(dataframe):
+    """
+    Gets the number of rows in a dataframe (most efficient way)
+    :param dataframe: The dataframe to get the rows of
+    :return: The row count
+    """
+
+    return len(dataframe.index)
+
+def parse_calendar_date(calendar_date):
+    """
+     Parses a date in the format 'YYYY-MM-DD'
+     Parameters:
+        calendar_date (object): Formatted as 'YYYY-MM-DD'
+    """
+
+    # Return the parsed value
+    return datetime.strptime(calendar_date, '%Y-%m-%d')
 
 def describe_hist(histogram, title, x_label, y_label):
     """
@@ -31,6 +53,16 @@ def is_nan(value):
     """
 
     return value != value
+
+def read_csv(file_path, verbose=True):
+    """
+    Reads a csv file and returns the smallest possible dataframe
+    :param file_path: The file path
+    :param verbose: Whether or not to be verbose about the memory savings
+    :return: An optimized dataframe
+    """
+
+    return pd.read_csv(file_path).pipe(reduce_mem_usage)
 
 def reduce_mem_usage(df, verbose=True):
     """

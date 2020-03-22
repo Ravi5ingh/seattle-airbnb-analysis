@@ -1,0 +1,9 @@
+- I decided to go with the Seattle Airbnb dataset initially because I thought that if I had issues, I might find better
+support on Udacity
+
+- Then I read up on what CRISP-DM actually is and why its important. To some extent, I can understand the need to for
+standardizing this process
+
+- I then decided to pick a simple question and find the answer to it using the CRISP-DM cycle. The question is:
+What do the room availabilities in Seattle look like on Airbnb?
+

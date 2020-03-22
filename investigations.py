@@ -2,13 +2,53 @@ import pandas as pd
 
 from util import *
 
+def plot_listings_vs_booking():
+    """
+    Every day from first to last day of data, plot how many properties were listed and how many properties
+    were booked each day
+    """
+
+    # This is what we want to populate and plot
+    listing_data = pd.DataFrame(columns=['date', 'total', 'booked'])
+
+    calendar = pd.read_csv('data/calendar.csv', parse_dates=['date']).pipe(reduce_mem_usage)
+
+    print(calendar['date'].dtypes)
+
+    # These are the min and max dates in calendar (worked out earlier)
+    current_date = datetime(2016, 1, 4)
+    end_date = datetime(2017, 1, 2)
+
+    while current_date <= end_date:
+
+        todays_listings = calendar[calendar['date'] == current_date]
+
+        total = row_count(todays_listings)
+        booked = row_count(todays_listings[todays_listings['available'] == 'f'])
+
+        listing_data = listing_data.append({'date': current_date, 'total': total, 'booked': booked}, ignore_index = True)
+
+        if(current_date.day == 1):
+            print('Data collected for ' + str(current_date))
+
+        current_date = current_date + timedelta(days=1)
+
+    standardize_plot_fonts()
+
+    plot = listing_data.plot(x='date', y='booked')
+    plot.set_xlabel('Date')
+    plot.set_ylabel('Number of rooms booked')
+    plot.set_title('Bookings over the year')
+
+    plt.show()
+
 def plot_price_data_availability_histogram():
     """
     Plots a histogram representing what the price data availabilities in the raw calendar data
     The availability for any listing id is the percentage of days for which there is price data
     """
 
-    calendar = pd.read_csv('data/calendar.csv').pipe(reduce_mem_usage)
+    calendar = read_csv('data/calendar.csv')
 
     unique_listing_ids = calendar['listing_id'].unique()
 
