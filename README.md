@@ -3,7 +3,7 @@ The purpose of this project is to perform data mining on the Airbnb dataset for 
 has to be done in accordance with the CRISP-DM methodology. To start off, here is a visualization of 
 CRISP-DM:
 
-![](./viz/CRISP-DM.png)
+![](./viz/CRISP-DM.svg)
 
 Source: (https://www.kaggle.com/airbnb/seattle/data)
 
