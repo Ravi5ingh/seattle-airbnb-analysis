@@ -71,7 +71,7 @@ missing values in price but what we care about the following columns:
 * available
 
 Let's see if any of them have missing values (They don't):
-![](./viz/jupyter/calendar_null_check.PNG)
+![](./viz/jupyter/calendar_null_check.png)
 
 ### Data Preparation & Modelling
 The next step is to prepare the data for modelling. For this one needs to  select, clean, construct, and format
