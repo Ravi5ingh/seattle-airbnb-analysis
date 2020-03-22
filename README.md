@@ -49,7 +49,7 @@ import sys
 !{sys.executable} -m pip install import_ipynb
  ```
  
-I then loaded the data:
+ I then loaded the data:
  ```python
  # Read a CSV
 import import_ipynb
@@ -59,9 +59,19 @@ calendar = read_csv('../data/calendar.csv')
 
 calendar.head()
  ```
- Notice I imported util which contains a special read_csv function which extends pandas.read_csv to make it more
- memory efficient.
+Notice I imported util which contains a special read_csv function which extends pandas.read_csv to make it more
+memory efficient. This is what we see:
 
+![](./viz/jupyter/calendar.png)
+
+So we see that 1 record in calendar is 1 day's availability for 1 listing and its price. It looks like there are 
+missing values in price but what we care about the following columns:
+* listing_id
+* data
+* available
+
+Let's see if any of them have missing values (They don't):
+![](./viz/jupyter/calendar_null_check.PNG)
 
 
 
