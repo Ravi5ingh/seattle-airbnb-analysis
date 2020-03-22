@@ -124,7 +124,15 @@ The following is the resulting plot:
 
 In this case, the modelling step is very small because all we're doing is generating a plot which you can see above
 
+### Evaluation
+Now to answer the question that we asked. Based on the data we have (Jan. 2016 to Jan. 2017), it looks like the number
+of rooms booked has been steadily declining however there have been 2 spikes. Once at April start and the second
+at Jul start.
 
+We don't know whether nor not these spikes are cyclical as we don't have multiple years' data. The other remarkable
+trait is that the total number of listings at any given time never deviates from 3818. This was not initially obvious.
+This seems to indicate that there must be a business rule limiting the number of properties that can be listed in
+Seattle.
 
 <!--
 ## Calendar Data
