@@ -42,7 +42,7 @@ to answer the business question. The data set consists of the following 3 files:
 
 The data we want is in the calendar.csv. To preview this I loaded it up in the jupyter notebook at 
 jupyter/main.ipynb. But first I installed the ability to import util.ipynb from main.ipynb like this :
- ```
+ ```python
  # This installs the ability to import jupyter notebooks
 import sys
 
@@ -50,7 +50,7 @@ import sys
  ```
  
 I then loaded the data:
- ```
+ ```python
  # Read a CSV
 import import_ipynb
 from util import *
