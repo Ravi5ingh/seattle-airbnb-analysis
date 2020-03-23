@@ -20,6 +20,7 @@ For this exercise, I decided to use Airbnb's Seattle data set for two reasons. F
 and it is one whose context I can fully grasp. Secondly, this was suggested by Udacity and I thought I may find 
 more support in case I run into issues. The data set is available here: (https://www.kaggle.com/airbnb/seattle/data)
 
+## The first question
 In order to try and understand how CRISP-DM works, I decided to try the cycle with a simple task. The first thing I
 wanted to do was to understand how busy the Airbnb scene in Seattle is based on the available data.
 
@@ -62,7 +63,7 @@ calendar.head()
 Notice I imported util which contains a special read_csv function which extends pandas.read_csv to make it more
 memory efficient. This is what we see:
 
-![](./viz/jupyter/calendar.png)
+![](viz/jupyter/calendar.png)
 
 So we see that 1 record in calendar is 1 day's availability for 1 listing and its price. It looks like there are 
 missing values in price but what we care about the following columns:
@@ -71,7 +72,7 @@ missing values in price but what we care about the following columns:
 * available
 
 Let's see if any of them have missing values (They don't):
-![](./viz/jupyter/calendar_null_check.png)
+![](viz/jupyter/calendar_null_check.png)
 
 ### Data Preparation & Modelling
 The next step is to prepare the data for modelling. For this one needs to  select, clean, construct, and format
@@ -91,7 +92,7 @@ listing_data = pd.DataFrame(columns=['date', 'total', 'booked'])
 
 calendar = pd.read_csv('../data/calendar.csv', parse_dates=['date']).pipe(reduce_mem_usage)
 
-# These are the min and max dates in calendar (worked out earlier)
+# These are the min and max dates in calendar
 current_date = min(calendar['date'])
 end_date = max(calendar['date'])
 
@@ -134,15 +135,59 @@ trait is that the total number of listings at any given time never deviates from
 This seems to indicate that there must be a business rule limiting the number of properties that can be listed in
 Seattle.
 
-<!--
-## Calendar Data
-The first thing that strikes me is that there is a lot of missing data in the price column so I decided
-to see how much data was missing. To visualize this, I plotted how populated the price data is for each
-listing id. The following histogram is what I got:
+## The Second Question
+For the next cycle, I decided to dig a little deeper into the data set. Now I've decided I want to understand
+how the properties in Seattle are priced on Airbnb. This is an abstract requirement so we have to ask a concrete
+question.
 
-![Airbnb](./viz/PriceDataAvailabilityHistogram.png)
+### Business Understanding
+The question should be:
 
-The x-axis is 50 buckets of price data availability percentages and the y-axis is the number
-of listings in that bucket. (eg. The last bucket is 98-100% and the y-value is >1000) This means
-that more than a 1000 listings have price data available for 98-100% of the days for which they were listed.
--->
+What are the primary factors in the property specifications that affect the price and how do they correlate?
+
+The objective here is to find those factors (if any) that correlate most strongly with the listed price of a property
+and understand the nature of that correlation. 
+
+The assessment would be: If we are able to find at-least 1 correlating factor and determine how the price correlates
+whit the factor, we will have succeeded.
+
+## Data Understanding
+The data that we need is pricing data. A quick look at the csv files reveals a problem. Both the calendar.csv
+and the listings.csv files have a 'price' column. The latter file has 2 more columns called 'weekly_price'
+and 'monthly_price'. This looks to me like the 'price' column in listings.csv must the default daily price for the
+property that the prospective landlord sets up initially and the 'price' column in calendar.csv must be set at
+the time of listing (to override default value). To verify this, I decided to cross-check the 'price' column values
+in the 2 files.
+
+This can be a bit tricky because the 'price' values in the 2 might be slightly off but that doesn't necessarily
+mean they don't match. To solve this problem, I decided to visualize instead what the price differences actually look like.
+I joined the calendar.csv and listings.csv tables on listing id and generated a list of price diff values. I then
+plotted the price diff values in a histogram to get their profile. This is what I got:
+![](viz/PriceDeviationFrequency.png)
+
+This figure visualized the frequency of diff values and it is pretty much what I expected to see. In the vast majority
+of cases, the difference between the calendar price and the listing price is 0 as the histogram shows. What this tells
+us is that both these columns are the daily price of the property which means we can use the 'price' column in 
+listsings.csv. 
+
+To explore the data further, I picked a few magnitude columns in listings.csv that could correlate with price
+(I'm ignoring the categorical variables for now) and plotted a correlation matrix. This is what I got:
+![](viz/PriceCorrMatrix.png)
+
+This indicates that there is a practically usable correlation between the price and some of the other columns.
+The next logical thing is to plot the following columns against price as they show promise:
+
+* accommodates (65%)
+* bedrooms (63%)
+* beds (59%)
+* bathrooms (52%)
+* guests_included (39%)
+
+The following are these plots:
+
+| | | 
+|:-------------------------:|:-------------------------:|
+![](viz/PriceVsAccommodates.png)|![](viz/PriceVsBedrooms.png)
+![](viz/PriceVsBeds.png)|![](viz/PriceVsBathrooms.png)
+![](viz/PriceVsGuests.png) |
+

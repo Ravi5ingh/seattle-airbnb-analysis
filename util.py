@@ -2,7 +2,29 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
-from datetime import timedelta
+
+def parse_price(price_string):
+    """
+    Parses a price of the format '$1,445' and returns a float
+    :param price_string: The readable price string
+    :return: A float
+    """
+
+    return float(price_string.replace('$', '').replace(',', ''))
+
+def pad(ser, result_len, default_val = np.nan):
+    """
+    Pad a Series with values at the end to make it the length provided. Default padding is NaN
+    :param ser: The Series
+    :param result_len: The resulting length. This should be more than the current length of the series
+    :param default_val: The value to pad with
+    :return: The padded Series
+    """
+
+    if ser.size > result_len:
+        raise ValueError('Result length ' + str(result_len) + ' needs to be more than ' + str(ser.size))
+
+    return ser.reset_index(drop=True).reindex(range(result_len), fill_value=default_val)
 
 def row_count(dataframe):
     """

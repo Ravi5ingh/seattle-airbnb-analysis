@@ -1,6 +1,144 @@
 import pandas as pd
+import seaborn as sns
 
 from util import *
+
+def plot_box(data_frame, x, y, x_label, y_label):
+    """
+    Given a data frame, plot a box plot where the x values are discreet
+    :param data_frame: The data frame to use
+    :param x: The x-axis dataframe column (discreet)
+    :param y: The y-axis dataframe column
+    :param x_label: The x-axis label
+    :param y_label: The y-axis label
+    """
+
+    inter_df = pd.DataFrame()
+    inter_df[x] = data_frame[x]
+    inter_df[y] = data_frame[y]
+
+    inter_df.dropna()
+
+    plot_df = pd.DataFrame()
+
+    num_rows = row_count(inter_df)
+
+    from_val = int(min(inter_df[x]))
+    to_val = int(max(inter_df[x]))
+    for i in range(from_val, to_val + 1):
+        plot_df[str(i)] = pad(inter_df[inter_df[x] == i][y], num_rows)
+
+    standardize_plot_fonts()
+
+    plot_to_show = plot_df.plot.box()
+
+    plot_to_show.set_title(y_label + ' vs ' + x_label)
+    plot_to_show.set_xlabel(x_label)
+    plot_to_show.set_ylabel(y_label)
+
+    plt.show()
+
+
+def plot_price_box_vs(column_name, readable_column_name):
+    """
+    Plot property price vs the number of people it accomodates
+    :param column_name: The name of the dataframe column to use as the x-axis
+    :param readable_column_name: The name to put on the plot labels
+    """
+
+    listings = read_csv('data/listings.csv')
+
+    plot_df = pd.DataFrame()
+    plot_df[column_name] = listings[column_name]
+    num_rows = row_count(listings)
+
+    from_val = min(plot_df[column_name])
+    to_val = max(plot_df[column_name])
+    for i in range(from_val, to_val + 1):
+        plot_df[str(i)] = pad(listings[listings[column_name] == i]['price'].apply(lambda x: float(x.replace('$', '').replace(',',''))), num_rows)
+
+    standardize_plot_fonts()
+
+    plot_to_show = plot_df.plot.box()
+
+    plot_to_show.set_title('Price vs ' + readable_column_name)
+    plot_to_show.set_xlabel(readable_column_name)
+    plot_to_show.set_ylabel('Price')
+
+    plt.show()
+
+def show_price_correlation_matrix():
+    """
+    Plot a correlation matrix that shows how price correlates with other columns
+    """
+
+    listings = read_csv('./data/listings.csv')
+
+    correlation_df = pd.DataFrame()
+    correlation_df['accommodates'] = listings['accommodates']
+    correlation_df['bathrooms'] = listings['bathrooms']
+    correlation_df['bedrooms'] = listings['bedrooms']
+    correlation_df['beds'] = listings['beds']
+    correlation_df['guests_included'] = listings['guests_included']
+    correlation_df['minimum_nights'] = listings['minimum_nights']
+    correlation_df['maximum_nights'] = listings['maximum_nights']
+    correlation_df['number_of_reviews'] = listings['number_of_reviews']
+    correlation_df['price'] = listings['price'].replace('$', '').replace(',', '').apply(lambda x: float(x.replace('$', '').replace(',', '')))
+
+
+    corr_matrix = correlation_df.corr()
+
+    standardize_plot_fonts()
+
+    sns.heatmap(corr_matrix, xticklabels=corr_matrix.columns, yticklabels=corr_matrix.columns, annot=True)
+
+    plt.title('Correlation Matrix for price column')
+
+    plt.show()
+
+def plot_listing_price_diffs():
+    """
+    Plot a histogram of price diffs between calendar.csv and listings.csv
+    """
+
+    listings = read_csv('./data/listings.csv')
+
+    # Remove listings in calendar that don't have price data
+    calendar = read_csv('./data/calendar.csv')
+    calendar = calendar.dropna()
+    unique_listing_ids = calendar['listing_id'].unique()
+
+    # Build up the listing id prices in calendar
+    listing_id_2_price = {}
+    i = 0
+    for listing_id in unique_listing_ids:
+        listing_for_id = calendar[calendar['listing_id'] == listing_id]
+        price = listing_for_id['price'].iloc[0].replace('$', '').replace(',', '')
+        listing_id_2_price[listing_id] = price
+
+        if i%500==0:
+            print(str(i) + ' listing ids processed')
+        i += 1
+
+    # Build up a map of listing id price diffs
+    listing_price_diffs = {}
+    for listing_id in listing_id_2_price.keys():
+
+        price_in_listings = listings[listings['id'] == listing_id]['price'].iloc[0].replace('$', '').replace(',', '')
+
+        listing_price_diffs[listing_id] = float(listing_id_2_price[listing_id]) - float(price_in_listings)
+
+    standardize_plot_fonts()
+
+    # Plot a histogram of the diff values
+    plt.hist(listing_price_diffs.values(), bins=100)
+    plt.title('Instances of price deviation')
+    plt.xlabel('Price deviation')
+    plt.ylabel('Number of listings')
+
+    plt.show()
+
+
 
 def plot_listings_vs_booking():
     """

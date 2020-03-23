@@ -5,7 +5,7 @@ Objective: Figure out what the room availability looks like on any given day
 Assessment: If we can figure out what the availability is for any given day, we have succeeded
 
 Data Understanding
-------------------
+------------------\\
 Collect: Data needed is in calendar.csv file
 Describe: Describe whats in calendar.csv + some aggregates
 Explore: Nothing
