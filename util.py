@@ -3,6 +3,39 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+def normalize_confusion_matrix(cm_df):
+    """
+    Normalize the values in a confusion matrix to be between 0 and 1
+    :param corr_df: The dataframe of the conusion matrix
+    :return: The normalized matrix
+    """
+
+    for col in cm_df.columns:
+        cm_df[col] = cm_df[col].apply(lambda x: x / cm_df[col].sum())
+
+    return cm_df
+
+
+def plot_scatter(data_frame, x, y, x_label = '', y_label = ''):
+
+    x_label = x if x_label == '' else x_label
+    y_label = y if y_label == '' else y_label
+
+    data_frame = data_frame.dropna()
+
+    standardize_plot_fonts()
+
+    df_plot = pd.DataFrame()
+    df_plot[x] = data_frame[x]
+    df_plot[y] = data_frame[y]
+
+    plot = df_plot.plot.scatter(x = x, y = y)
+    plot.set_xlabel(x_label)
+    plot.set_ylabel(y_label)
+    plot.set_title(y_label + ' vs. ' + x_label)
+
+    plt.show()
+
 def parse_price(price_string):
     """
     Parses a price of the format '$1,445' and returns a float
@@ -66,6 +99,15 @@ def standardize_plot_fonts():
 
     plt.rc('axes', labelsize=15) # Axis Font
     plt.rc('axes', titlesize=22) # Title Font
+
+def whats(thing) :
+    """
+    Prints the type of object passed in
+    Parameters:
+        thing (Object): The object for which the type needs to be printed
+    """
+
+    print(type(thing))
 
 def is_nan(value):
     """

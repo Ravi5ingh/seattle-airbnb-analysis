@@ -151,7 +151,7 @@ and understand the nature of that correlation.
 The assessment would be: If we are able to find at-least 1 correlating factor and determine how the price correlates
 whit the factor, we will have succeeded.
 
-## Data Understanding
+### Data Understanding
 The data that we need is pricing data. A quick look at the csv files reveals a problem. Both the calendar.csv
 and the listings.csv files have a 'price' column. The latter file has 2 more columns called 'weekly_price'
 and 'monthly_price'. This looks to me like the 'price' column in listings.csv must the default daily price for the
@@ -191,3 +191,50 @@ The following are these plots:
 ![](viz/PriceVsBeds.png)|![](viz/PriceVsBathrooms.png)
 ![](viz/PriceVsGuests.png) |
 
+As we can see, the accommodates column has the cleanest correlation
+
+### Data Preparation
+Following this insight, I did what appeared logic to me. I tried to fit a simple model to this data so I could
+predict a property's price based on the 5 columns in the previous section. I will briefly run through what I did
+before explaining why this was mostly futile.
+
+Data preparation in this case is straightforward. The first thing I did is put the price values into buckets.
+This makes sense given that the data clearly has a many-to-one relationship (ie. price to input). I experimented
+with different bucket sizes before settling on 50. The next step is to pick out the columns and normalize them.
+I did this and created a new csv called 'pricing_model_train.csv'
+
+### Modelling
+I tried to train the MLPClassifer in numpy on this data. The code is in the jupyter notebook main.ipynb. This is
+what the confusion matrix looks like:
+
+![](viz/jupyter/confusion_matrix.png)
+
+(Note: In theory this should be a 20x20 matrix for each of the 20 buckets ($1000 / 50 = 20) but this just works
+on the test data which is set to be 30% of all the data. Also note that the heatmap is normalized (code provided))
+
+The confusion matrix doesn't look so bad however despite tinkering with the parameters for a long time I was unable
+to get it to be any more accurate. I then came across the explanation for this. What we have here is an example
+of the multicollinearity problem.
+
+Essentially the multicollinearity problem describes a situation where the input parameters in the training data
+are correlated with each other. The reason this is problem is that it is difficult for a model to check the 
+effect of 1 input variable on the output variable independently because it is unable to keep the other input
+variables constant (because they are correlated).
+
+So if this were true, then it would mean that I can use 1 input variable (the best one) and fit the model and
+the results shouldn't be very different. I did this and this is the confusion matrix I got:
+
+![](viz/jupyter/confusion_matrix_accomm.png)
+
+We can see here that the accuracy hasn't changed drastically which is what I expected
+
+### Evaluation
+Evaluating a classifier model is straightforward. We can find the precision (Recall is less relevant here as there are
+more than 2 output classifications)
+* 5 input model precision: 55.4%
+* 1 input model precision: 53.0%
+
+The precision barely differs when we go from 1 input to 5 inputs. As discussed above, this is a result of the fact
+that the inputs correlate with each other so the additional 4 input parmaters don't bring any new info that can
+be used to narrow down the value of the output parameter. Because reviewing the process is part of evaluating, I
+should mention that we should ensure that input variables don't correlate with each other before we train our model.
