@@ -1,4 +1,4 @@
-# Analysis of Seattle's Airbnb Data
+# Analysis of Seattle's Airbnb Data (Test Edit)
 The purpose of this project is to demo a data mining project for Udacity. This has to be done in accordance with the 
 CRISP-DM methodology. To start off, here is a visualization of CRISP-DM:
 
