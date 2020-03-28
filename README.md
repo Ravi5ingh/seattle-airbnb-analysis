@@ -31,8 +31,9 @@ is in Seattle. The most logical question to ask then is:
 
 Based on the data, what does room listing and availability over time in Seattle look like?
 
-The objective of this cycle is to find out how many rooms are listed and how many are booked/available at any given time.
-The way to assess success is pretty straightforward. If we can visualize the data, we succeeded.
+**Objective:** The objective of this cycle is to find out how many rooms are listed and how many are 
+booked/available at any given time.  
+**Assessment:** The way to assess success is pretty straightforward. If we can visualize the data, we succeeded.
 
 ### Data Understanding
 The purpose of the data understanding step is to collect, describe, explore, and verify the data sources necessary
@@ -145,11 +146,10 @@ The question should be:
 
 What are the primary factors in the property specifications that affect the price and how do they correlate?
 
-The objective here is to find those factors (if any) that correlate most strongly with the listed price of a property
-and understand the nature of that correlation. 
-
-The assessment would be: If we are able to find at-least 1 correlating factor and determine how the price correlates
-whit the factor, we will have succeeded.
+**Objective:** The objective here is to find those factors (if any) that correlate most strongly with the listed
+price of a property and understand the nature of that correlation.   
+**Assessment:** If we are able to find at-least 1 correlating factor and determine 
+how the price correlates with the factor, we will have succeeded.
 
 ### Data Understanding
 The data that we need is pricing data. A quick look at the csv files reveals a problem. Both the calendar.csv
@@ -229,12 +229,77 @@ the results shouldn't be very different. I did this and this is the confusion ma
 We can see here that the accuracy hasn't changed drastically which is what I expected
 
 ### Evaluation
+Firstly we must answer the question we are trying to answer. The answer is that the 'accommodates', 'bedrooms', 'bed',
+'bathrooms', and 'guests_included' columns correlate positively with the 'price' column. This relationship
+is evident in the box plots we saw in the Data Understanding section.
+
 Evaluating a classifier model is straightforward. We can find the precision (Recall is less relevant here as there are
 more than 2 output classifications)
 * 5 input model precision: 55.4%
 * 1 input model precision: 53.0%
 
 The precision barely differs when we go from 1 input to 5 inputs. As discussed above, this is a result of the fact
-that the inputs correlate with each other so the additional 4 input parmaters don't bring any new info that can
+that the inputs correlate with each other so the additional 4 input parameters don't bring any new info that can
 be used to narrow down the value of the output parameter. Because reviewing the process is part of evaluating, I
 should mention that we should ensure that input variables don't correlate with each other before we train our model.
+
+## The Third Question
+For the third CRISP-DM cycle, I decided I wanted to include an additional data set to do some comparative analysis.
+There is another data set of Airbnb listings and bookings for Boston that is in the same format as this data set for
+Seattle. This is very convenient as it will make data understanding and preparation very simple. What I'd like to 
+understand this time is how the apartments in Seattle compare with the ones in Boston
+
+### Business Understanding
+The question in this case should be:
+
+How do the key specs for the apartments in Seattle compare to the ones in Boston and how pricey are they?
+
+**Objctive:** The objective here is to compare the specs of apartments in Seattle vs Boston 
+and also compare their prices.  
+**Assessment:** This will likely be a statistical model. If this is how we answer the question, we will assess
+the quality of the model using the p-value.
+
+### Data Understanding
+The first thing to do is to get the Airbnb data set for Boston. It is available here:
+(https://www.kaggle.com/airbnb/boston).  
+It has been downloaded to the 'data/boston' folder. If we take a look, it has the same three files as the
+Seattle data set which is good news as we want to compare things. If we look at the shape of the data, calendar and
+reviews have the same shape: 
+
+![](viz/jupyter/seattle_boston_data_shape.png)
+
+The listings.csv files however differ so let's find out if this is a problem. To find out, we need to know which
+features we care about. In the listings.csv, the following features would be helpful in answering the question:
+* room_type
+* accommodates
+* bathrooms
+* bedrooms
+* beds
+* price
+
+All of these features are in the listings.csv file for Boston so we don't have a problem
+
+### Data Preparation & Modelling
+For data prep, all we do is join the Seattle and Boston listings into a single csv where the columns are the above
+plus another for 'city'.
+
+We want to compare the specs of the apartments in Seattle vs. Boston. The appropriate model to do this is the
+violin plot so I plotted one to compare the prices in Seattle vs. Boston and this is what I got.
+
+![](viz/jupyter/seattle_vs_boston_price.png)
+(**Note:** I've bucketed the price values into buckets of size 50)
+
+The thin needle at the top results from large price outlier values in the Boston data. It looks like all meaningful data
+is below the $1,000 which is also the max for the Seattle data so it makes sense to prune the price and re-plot:
+
+![](viz/jupyter/seattle_vs_boston_price_limited.png)
+
+Based on the chart above, there isn't an obvious answer to the question: Which city is pricier so I broke down the 
+data further based on the apartment specs and generated a set of charts to visualize how expensive different kinds
+of apartments are between the two cities. The following are the charts:
+
+| | | 
+|:-------------------------:|:-------------------------:|
+![](viz/jupyter/seattle_vs_boston_price_of_roomtypes.png)|![](viz/jupyter/seattle_vs_boston_price_of_peopleaccommodated.png)
+![](viz/jupyter/seattle_vs_boston_price_of_bathrooms.png)|![](viz/jupyter/seattle_vs_boston_price_of_beds.png)
+

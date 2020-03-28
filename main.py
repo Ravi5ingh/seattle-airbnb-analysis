@@ -48,19 +48,19 @@ from scipy import stats
 # beds
 # guests_included
 
-price_bucket_size = 50
-column_to_use = 'accommodates'
-model_df = read_csv('data/pricing_model_train.csv')
-model_df = model_df.dropna()
+# price_bucket_size = 50
+# column_to_use = 'accommodates'
+# model_df = read_csv('data/pricing_model_train.csv')
+# model_df = model_df.dropna()
+#
 
-
-generate_pricing_model_data(price_bucket_size)
+# generate_pricing_model_data(price_bucket_size)
 #
 # model_df[column_to_use] = model_df[column_to_use].apply(lambda x: int(x * 10))
 # model_df['price'] = model_df['price'].apply(lambda x: x * 1000)
 # plot_box(model_df, column_to_use, 'price', column_to_use, 'Price')
 
-train_pricing_model(column_to_use, 1000 / price_bucket_size)
+# train_pricing_model(column_to_use, 1000 / price_bucket_size)
 
 
 # x = np.array(model_df[column_to_use].apply(lambda x: np.float64(x)))
@@ -78,5 +78,32 @@ train_pricing_model(column_to_use, 1000 / price_bucket_size)
 # plt.show()
 
 
+# Join the data from the two cities
+join_seattle_boston_apt_data(price_bucket_size=50)
+
+# listings = read_csv('data/listings_joined.csv')
+# listings = listings.dropna()
+# listings = listings[listings['Price'] <= 20]
+# listings[''] = 0 # Create a redundant column to facilitate the creation of a violin plot
+#
+# # Create a violin plot
+# plot = sns.violinplot(x='', y='Price', hue='City', split=True, data=listings)
+# plot.set_xticklabels([''])
+# plot.set_yticklabels(['', '$0', '$250', '$500', '$750', '$1,000'])
+#
+# plt.show()3
 
 
+# seattle_data = pd.DataFrame()
+# 'Type of Room'] = listings_seattle['room_type']
+# 'People Accommodated'] = listings_seattle['accommodates']
+# 'Number of Bathrooms'] = listings_seattle['bathrooms']
+# 'Number of Bedrooms'] = listings_seattle['bedrooms']
+# 'Number of Beds'] = listings_seattle['beds']
+# 'Price'] = listings_seattle['price'].apply(lambda x: int(parse_price(x) / price_bucket_size))
+# 'City'] = 'Seattle'
+
+seattle_boston_compare_price_of('Type of Room')
+seattle_boston_compare_price_of('People Accommodated')
+seattle_boston_compare_price_of('Number of Bathrooms')
+seattle_boston_compare_price_of('Number of Beds')

@@ -1,14 +1,63 @@
 from util import *
 from sklearn.neural_network import MLPClassifier
 
-# from sklearn.pipeline import Pipeline
-# from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import *
 from sklearn.metrics import confusion_matrix
 
 import seaborn as sns
 
+def seattle_boston_compare_price_of(x):
+    """
+    Compare Seattle vs. Boston prices of the given feature
+    :param x: The feature of which we want to compare the price
+    """
+
+    listings = read_csv('data/listings_joined.csv')
+    listings = listings.dropna()
+    listings = listings[listings['Price'] <= 20]
+
+    # Create a violin plot
+    plot = sns.violinplot(x=x, y='Price', hue='City', split=True, data=listings)
+    plot.set_yticklabels(['', '$0', '$250', '$500', '$750', '$1,000'])
+
+    plt.show()
+
+def join_seattle_boston_apt_data(price_bucket_size):
+    """
+    Join the data for Seattle and Boston into a single csv file
+    :param price_bucket_size: The size of the buckets for the price column
+    """
+
+    listings_seattle = read_csv('data/listings.csv')
+    listings_boston = read_csv('data/boston/listings.csv')
+
+    seattle_data = pd.DataFrame()
+    seattle_data['Type of Room'] = listings_seattle['room_type']
+    seattle_data['People Accommodated'] = listings_seattle['accommodates']
+    seattle_data['Number of Bathrooms'] = listings_seattle['bathrooms']
+    seattle_data['Number of Bedrooms'] = listings_seattle['bedrooms']
+    seattle_data['Number of Beds'] = listings_seattle['beds']
+    seattle_data['Price'] = listings_seattle['price'].apply(lambda x: int(parse_price(x)/price_bucket_size))
+    seattle_data['City'] = 'Seattle'
+
+    boston_data = pd.DataFrame()
+    boston_data['Type of Room'] = listings_boston['room_type']
+    boston_data['People Accommodated'] = listings_boston['accommodates']
+    boston_data['Number of Bathrooms'] = listings_boston['bathrooms']
+    boston_data['Number of Bedrooms'] = listings_boston['bedrooms']
+    boston_data['Number of Beds'] = listings_boston['beds']
+    boston_data['Price'] = listings_boston['price'].apply(parse_price).apply(lambda x: int(x/price_bucket_size))
+    boston_data['City'] = 'Boston'
+
+    seattle_data.append(boston_data).to_csv('data/listings_joined.csv', index=False)
+
+
 def pricing_mode_rf():
+    """
+    Train a Random Forest classifier on the data
+    """
 
     model_df = read_csv('data/pricing_model_train.csv')
     model_df = model_df.dropna()
@@ -34,20 +83,11 @@ def pricing_mode_rf():
     matrix = confusion_matrix(y_test, y_pred)
     print(matrix)
 
-def plot_training_data(x):
-
-    model_df = read_csv('data/pricing_model_train.csv')
-    model_df = model_df.dropna()
-
-    plot_scatter(model_df, x=x, y='price')
-
-
 def train_pricing_model(x, price_multiple):
     """
-
-    :param x:
-    :param price_multiple:
-    :return:
+    Train a model based on the normalized data
+    :param x: The input axis
+    :param price_multiple: The price multiple is necessary to convert the price into an integer for classification
     """
 
     model_df = read_csv('data/pricing_model_train.csv')
