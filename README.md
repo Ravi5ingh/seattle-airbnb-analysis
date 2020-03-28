@@ -301,5 +301,37 @@ of apartments are between the two cities. The following are the charts:
 | | | 
 |:-------------------------:|:-------------------------:|
 ![](viz/jupyter/seattle_vs_boston_price_of_roomtypes.png)|![](viz/jupyter/seattle_vs_boston_price_of_peopleaccommodated.png)
-![](viz/jupyter/seattle_vs_boston_price_of_bathrooms.png)|![](viz/jupyter/seattle_vs_boston_price_of_beds.png)
+![](viz/jupyter/seattle_vs_boston_price_of_bathrooms.png)|![](viz/jupyter/seattle_vs_boston_price_of_bedrooms.png)
+![](viz/jupyter/seattle_vs_boston_price_of_beds.png)|
 
+A cursory glance at the above charts indicates that the properties in Boston are generally pricier than the 
+equivalently spec'd apartments in Seattle but this is a statement about price of equivalent properties in the two
+cities. It is not a comparison of the nature of the properties themselves.
+
+The following charts show the quantity of different property types in the two cities
+
+| | |
+|:-------------------------:|:-------------------------:|
+![](viz/jupyter/seattle_vs_boston_peopleaccommodated.png)|![](viz/jupyter/seattle_vs_boston_bathrooms.png)
+![](viz/jupyter/seattle_vs_boston_peopleaccommodated.png)|![](viz/jupyter/seattle_vs_boston_bathrooms.png)
+(**Note:** I created a redundant x-axis because seaborn doesn't like to plot violin charts without one)
+
+If one looks carefully at the charts above, it will become apparent that Boston generally has more properties at the 
+smaller end and fewer at the larger end of the property size spectrum. The conclusion that I derive from that is
+that properties in Boston are generally smaller.
+
+The following chart compares the explicitly classified property types in the two cities:
+
+![](viz/jupyter/seattle_vs_boston_roomtype.png)
+
+This chart further reinforces this conclusion. Seattle has more full houses and Boston has more private rooms. The
+shared room category is not big enough to be statistically significant.
+
+### Evaluation
+To re-iterate the third question was :
+
+How do the key specs for the apartments in Seattle compare to the ones in Boston and how pricey are they?
+
+The answer to this question is: Based on the key specs we chose, it looks like the properties in Boston are generally
+smaller than the ones in Seattle. Also, properties in Boston are more expensive when compared to 
+equally spec'd properties in Seattle.

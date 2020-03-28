@@ -3,6 +3,43 @@ import seaborn as sns
 
 from util import *
 
+def seattle_boston_compare(y):
+    """
+    Compare the given feature of listings in Seattle vs Boston
+    :param y: The feature we want to compare
+    """
+
+    listings = read_csv('data/listings_joined.csv')
+    listings = listings.dropna()
+
+    # Create a redundant column to facilitate the creation of a violin plot
+    listings[''] = 0
+
+    # Create a violin plot
+    plot = sns.violinplot(x='', y=y, hue='City', split=True, data=listings)
+    plot.set_xticklabels([''])
+
+    plt.show()
+
+def seattle_boston_compare_price_of(x, yticklabels):
+    """
+    Compare Seattle vs. Boston prices of the given feature
+    :param x: The feature of which we want to compare the price
+    :param yticklabels: The labels for the x-axis
+    """
+
+    listings = read_csv('data/listings_joined.csv')
+    listings = listings.dropna()
+    listings = listings[listings['Price'] <= 20]
+
+    print(max(listings['Price']))
+
+    # Create a violin plot
+    plot = sns.violinplot(x=x, y='Price', hue='City', split=True, data=listings)
+    plot.set_yticklabels(yticklabels)
+
+    plt.show()
+
 def plot_box(data_frame, x, y, x_label, y_label):
     """
     Given a data frame, plot a box plot where the x values are discreet

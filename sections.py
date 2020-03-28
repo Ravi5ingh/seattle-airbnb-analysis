@@ -1,4 +1,5 @@
 from util import *
+from investigations import *
 from sklearn.neural_network import MLPClassifier
 
 from sklearn.pipeline import Pipeline
@@ -8,20 +9,59 @@ from sklearn.metrics import confusion_matrix
 
 import seaborn as sns
 
-def seattle_boston_compare_price_of(x):
+def plot_seattle_vs_boston_listing_specs():
     """
-    Compare Seattle vs. Boston prices of the given feature
-    :param x: The feature of which we want to compare the price
+    Plot the nature of the properties in Seattle vs Boston
     """
+
+    # seattle_boston_compare('People Accommodated')
+    # seattle_boston_compare('Number of Bathrooms')
+    # seattle_boston_compare('Number of Beds')
 
     listings = read_csv('data/listings_joined.csv')
     listings = listings.dropna()
-    listings = listings[listings['Price'] <= 20]
 
-    # Create a violin plot
-    plot = sns.violinplot(x=x, y='Price', hue='City', split=True, data=listings)
-    plot.set_yticklabels(['', '$0', '$250', '$500', '$750', '$1,000'])
+    # Plot the room types in a bar chart
+    seattle_num_home = row_count(listings[(listings['Type of Room'] == 'Entire home/apt') & (listings['City'] == 'Seattle')])
+    seattle_num_room = row_count(listings[(listings['Type of Room'] == 'Private room') & (listings['City'] == 'Seattle')])
+    seattle_num_shared_room = row_count(listings[(listings['Type of Room'] == 'Shared room') & (listings['City'] == 'Seattle')])
 
+    boston_num_home = row_count(listings[(listings['Type of Room'] == 'Entire home/apt') & (listings['City'] == 'Boston')])
+    boston_num_room = row_count(listings[(listings['Type of Room'] == 'Private room') & (listings['City'] == 'Boston')])
+    boston_num_shared_room = row_count(listings[(listings['Type of Room'] == 'Shared room') & (listings['City'] == 'Boston')])
+
+    # indices = ['Entire home/apt', 'Private room', 'Shared room']
+
+    N = 3
+
+    # Specify the values of blue bars (height)
+    blue_bar = (seattle_num_home, seattle_num_room, seattle_num_shared_room)
+    # Specify the values of orange bars (height)
+    orange_bar = (boston_num_home, boston_num_room, boston_num_shared_room)
+
+    # Position of bars on x-axis
+    ind = np.arange(N)
+
+    # Figure size
+    plt.figure(figsize=(10, 5))
+
+    # Width of a bar
+    width = 0.3
+
+    # Plotting
+    plt.bar(ind, blue_bar, width, label='Seattle')
+    plt.bar(ind + width, orange_bar, width, label='Boston')
+
+    plt.ylabel('Number of Properties')
+    plt.title('Type of Properties in Seattle vs Boston')
+
+    # xticks()
+    # First argument - A list of positions at which ticks should be placed
+    # Second argument -  A list of labels to place at the given locations
+    plt.xticks(ind + width / 2, ('Entire home/apt', 'Private room', 'Shared room'))
+
+    # Finding the best position for legends and putting it
+    plt.legend(loc='best')
     plt.show()
 
 def join_seattle_boston_apt_data(price_bucket_size):

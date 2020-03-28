@@ -79,7 +79,7 @@ from scipy import stats
 
 
 # Join the data from the two cities
-join_seattle_boston_apt_data(price_bucket_size=50)
+# join_seattle_boston_apt_data(price_bucket_size=50)
 
 # listings = read_csv('data/listings_joined.csv')
 # listings = listings.dropna()
@@ -103,7 +103,16 @@ join_seattle_boston_apt_data(price_bucket_size=50)
 # 'Price'] = listings_seattle['price'].apply(lambda x: int(parse_price(x) / price_bucket_size))
 # 'City'] = 'Seattle'
 
-seattle_boston_compare_price_of('Type of Room')
-seattle_boston_compare_price_of('People Accommodated')
-seattle_boston_compare_price_of('Number of Bathrooms')
-seattle_boston_compare_price_of('Number of Beds')
+# seattle_boston_compare_price_of('Type of Room', ['', '$0', '$250', '$500', '$750', '$1,000'])
+# seattle_boston_compare_price_of('People Accommodated', ['', '$0', '$142', '$286', '$429', '$571', '$714', '$857', '$1,000'])
+# seattle_boston_compare_price_of('Number of Bathrooms', ['', '$0', '$250', '$500', '$750', '$1,000'])
+# seattle_boston_compare_price_of('Number of Bedrooms', ['', '$0', '$250', '$500', '$750', '$1,000'])
+# seattle_boston_compare_price_of('Number of Beds', ['', '$0', '$167', '$333', '$500', '$667', '$833', '$1,000'])
+
+
+
+# seattle_boston_compare('People Accommodated')
+# seattle_boston_compare('Number of Bathrooms')
+# seattle_boston_compare('Number of Beds')
+
+plot_seattle_vs_boston_listing_specs()
