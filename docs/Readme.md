@@ -27,7 +27,7 @@ For this reason we should make this question more specific. So a better question
 ### Data Understanding
 Now that we know exactly what we'd like to know, the next step is to get our hands on the data that we will need to investigate to get our answers. According to CRISP-DM, understanding the data involves collecting, describing, exploring, and verifying the data.
 
-I made a mistake here. I didn't do the last part *(**ie.** verifying)* properly. As a result, I got the wrong answer to the right question but I will explain this after I've described what I did.
+I made a mistake here. I didn't do the last part *(**ie.** verifying)* properly. As a result, my inference was wrong but I will explain this after I've described what I did.
 
 In our case, Airbnb's Seattle data set consists of 3 files:
 * calendar.csv
@@ -48,3 +48,29 @@ There are four columns in here and this is what I thought they meant:
 In theory, based on this data, one should be able to work out how many properties were listed on any given day and how many of them were booked so I did this.
 
 ### Data Preparation
+It is virtually never the case that the data is in the format we want it to be to create our models or to answer our questions. CRISP-DM lays out a method for selecting, cleaning, constructing, and integrating our data to prepare it for modelling.
+
+To do this, I've written some code to get a date-wise list showing how many properties were listed and booked on any given day. The code for this is available in the jupyter notebook [here](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/jupyter/main.ipynb).
+
+### Modeling
+The modeling steps usually involves selecting a model and a way to assess it, building the model, and then assessing it. My model is simply a line chart so this step is small.
+
+Once I prepared the data, the following is what I got:
+
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/BookingsOverYear.png?raw=true)
+
+### Evaluation
+The chart above looks interesting but it is not what I expected. There are three remarkable traits. The first is that the total properties listed never changes. There are always 3818 properties listed on any given day. The second is that the chart indicates that business has been steadily declining as the number of rooms booked has been coming down. The third is that there are spikes at April start and July start.
+ 
+The second conclusion is wrong and it is the result of a mistake I made in the data understanding section. I later found out that the calendar.csv data is not past booking data but future booking data. This completely changes the meaning. This chart does not show steadily declining business. It shows how booked the properties are 365 days into the future so it makes sense that properties are less booked further into the future. The spikes still mean the same thing *(**ie.** People must be booking for dates in April for an event or holiday like Easter)*
+
+What this shows us is the value of being systematic with the data mining process. What I've done here is found the right answer to the wrong question.
+
+## Question 2
+For the next cycle, I decided to look at pricing. I wanted to understand how properties in Seattle are priced for Airbnb.
+
+### Business & Data Understanding
+The right question in this case is:
+
+What are the primary factors in the property specifications that affect the price and how do they correlate?
+
