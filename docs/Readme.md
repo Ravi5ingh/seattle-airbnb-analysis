@@ -8,7 +8,7 @@ Data Mining is a somewhat abstract term that can be interpreted and executed in 
 
 This is what it looks like:
 
-![](../viz/CRISP-DM.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/CRISP-DM.png?raw=true)
 
 At a high level, CRISP-DM is a cyclical process that tells you how to systematically process your data to derive value. One cycle is basically one data processing pipeline that begins with a question and ends with an answer. There is also an optional step for deployment where that makes sense. If you want a detailed explanation, you can read all about this [here](ftp://ftp.software.ibm.com/software/analytics/spss/support/Modeler/Documentation/14/UserManual/CRISP-DM.pdf).
 
@@ -36,7 +36,7 @@ In our case, Airbnb's Seattle data set consists of 3 files:
 
 The file that I thought I needed to answer this question was calendar.csv. The following is a preview of the data within it:
 
-![](../viz/jupyter/calendar.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/calendar.png?raw=true)
 
 There are four columns in here and this is what I thought they meant:
 
