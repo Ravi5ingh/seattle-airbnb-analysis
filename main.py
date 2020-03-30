@@ -121,9 +121,10 @@ from scipy import stats
 # show_seattle_value_for_money()
 # show_boston_value_for_money()
 
-show_seattle_average_property_specs()
-show_boston_average_property_specs()
+# show_seattle_average_property_specs()
+# show_boston_average_property_specs()
 
-# listings = pd.read_csv('data/listings.csv', dtype={'longitude': str, 'latitude': str})
-#
-# generate_kml_for(listings, 'data/listings_viz_meta.kml')
+listings = pd.read_csv('data/listings.csv', dtype={'longitude': str, 'latitude': str})
+listings = listings[listings['is_location_exact'] == 't'].sample(n=2000, random_state=1)
+
+generate_kml_for(listings, 'data/listings_viz_meta.kml')

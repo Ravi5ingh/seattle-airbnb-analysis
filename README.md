@@ -335,3 +335,11 @@ How do the key specs for the apartments in Seattle compare to the ones in Boston
 The answer to this question is: Based on the key specs we chose, it looks like the properties in Boston are generally
 smaller than the ones in Seattle. Also, properties in Boston are more expensive when compared to 
 equally spec'd properties in Seattle.
+
+*(END OF ASSIGNMENT)*
+
+## Question 4
+If I had more time, the next thing I would like to do is explore the geo-spatial data in our data set. There is some really good data available. For eg. the coordinates and the neighborhoods.
+
+### Business & Data Understanding
+Question: How does the distance from the center affect property price?
