@@ -4,6 +4,17 @@ import pandas as pd
 import seaborn as sns
 import xml.dom.minidom
 
+def generate_distance_data_for(df, center_longitude, center_latitude):
+    """
+    Generate a csv that adds a column to quantify the straight-line distance between the property and the
+    provided map point
+    :param df: The data frame with the listings 
+    :param center_longitude: The longitude of the point to which distance for each listing must be calculated
+    :param center_latitude: The latitude of the point to which distance for each listing must be calculated
+    """
+
+    x = 4
+
 def generate_kml_for(df, output_file_name):
     """
     Generate a KML file based on the coordinate data in the data frame provided

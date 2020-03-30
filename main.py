@@ -128,3 +128,5 @@ listings = pd.read_csv('data/listings.csv', dtype={'longitude': str, 'latitude':
 listings = listings[listings['is_location_exact'] == 't'].sample(n=2000, random_state=1)
 
 generate_kml_for(listings, 'data/listings_viz_meta.kml')
+
+# listings = pd.read_csv('data/listings.csv', dtype={'longitude': float64, 'latitude': float64})
