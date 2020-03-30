@@ -122,7 +122,7 @@ Data preparation in this case is straightforward. The first thing I did is put t
 ### Modelling
 I used machine learning to model the relationship between the inputs and output. In this case I chose a standard classifier based on neural networks. I trained this classifier on the data in pricing_model_train.csv and the following are the results I got:
 
-![](../viz/jupyter/confusion_matrix_labelled.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/confusion_matrix_labelled.png?raw=true)
 
 The confusion matrix above is a way to quantify the merit of a model. It basically shows how many times the trained model predicted the price correctly vs. incorrectly. For eg. the value at the third row and third column is 90. This means that, there are 90 instances where the model correctly predicted that a property is between $150-$200. The value at the fifth row and third column is 15. This means that in 15 instances the model predicted a price of $150-$200 but it was actually $250-$300. 
 
@@ -160,33 +160,33 @@ The listings.csv file in both data sets contains these features so I didn't have
 ### Data Preparation & Modelling
 All I had to do to prepare the data was to join it. I created a new table with the chosen columns above plus one more for the city. This is what the joined data looks like:
 
-![](../viz/ListingsJoinedPreview.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/ListingsJoinedPreview.png?raw=true)
 
 I then modelled the data using violin charts. To begin with I created a chart to visualize the price distribution in both cities. This is what I got:
 
-![](../viz/jupyter/seattle_vs_boston_price_limited.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_price_limited.png?raw=true)
 
 This chart doesn't give a clear indication of the price difference in the two cities so I broke it down further into property types and this is what I got:
 
 | | | 
 |:-------------------------:|:-------------------------:|
-![](../viz/jupyter/seattle_vs_boston_price_of_roomtypes.png)|![](../viz/jupyter/seattle_vs_boston_price_of_peopleaccommodated.png)
-![](../viz/jupyter/seattle_vs_boston_price_of_bathrooms.png)|![](../viz/jupyter/seattle_vs_boston_price_of_bedrooms.png)
-![](../viz/jupyter/seattle_vs_boston_price_of_beds.png)|
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_price_of_roomtypes.png?raw=true)|![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_price_of_peopleaccommodated.png?raw=true)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_price_of_bathrooms.png?raw=true)|![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_price_of_bedrooms.png?raw=true)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_price_of_beds.png?raw=true)|
 
 A cursory glance at the above charts indicates that the properties in Boston are generally pricier than the equivalently spec'd apartments in Seattle. This is a statement about the price so I compared the distribution of property types in the two cities and this is what I got:
 
 | | |
 |:-------------------------:|:-------------------------:|
-![](../viz/jupyter/seattle_vs_boston_peopleaccommodated.png)|![](../viz/jupyter/seattle_vs_boston_bathrooms.png)
-![](../viz/jupyter/seattle_vs_boston_peopleaccommodated.png)|![](../viz/jupyter/seattle_vs_boston_bathrooms.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_peopleaccommodated.png?raw=true)|![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_bathrooms.png?raw=true)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_bedrooms.png?raw=true)|![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_beds.png?raw=true)
 *(**Note:** I created a redundant x-axis because seaborn doesn't like to plot violin charts without one)*
 
 If one looks carefully at the charts above, it will become apparent that Boston generally has more properties at the smaller end and fewer at the larger end of the property size spectrum. The conclusion that I derive from that is that properties in Boston are generally smaller.
 
 The following chart compares the explicitly classified property types in the two cities:
 
-![](../viz/jupyter/seattle_vs_boston_roomtype.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_roomtype.png?raw=true)
 
 This chart further reinforces this conclusion. Seattle has more full houses and Boston has more private rooms. The shared room category is not big enough to be statistically significant.
 

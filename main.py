@@ -113,12 +113,13 @@ from scipy import stats
 
 # seattle_boston_compare('People Accommodated')
 # seattle_boston_compare('Number of Bathrooms')
+# seattle_boston_compare('Number of Bedrooms')
 # seattle_boston_compare('Number of Beds')
 
 # plot_seattle_vs_boston_listing_specs()
 
 # listings = read_csv('data/listings.csv')
 
-listings = pd.read_csv('data/listings.csv', dtype={'longitude': str, 'latitude': str})
-
-generate_kml_for(listings, 'data/listings_viz_meta.kml')
+# listings = pd.read_csv('data/listings.csv', dtype={'longitude': str, 'latitude': str})
+#
+# generate_kml_for(listings, 'data/listings_viz_meta.kml')
