@@ -193,11 +193,11 @@ This chart further reinforces this conclusion. Seattle has more full houses and 
 
 After this, I decided to verify the results of our model so I wrote some code to display the average characteristics of the properties in Seattle vs Boston as well as the value for money. The following are the results of the former:
 
-![](../viz/jupyter/seattle_vs_boston_average_property.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_average_property.png?raw=true)
 
 The following summarizes the value for money for the two cities:
 
-![](../viz/jupyter/seattle_vs_boston_value_for_money.png)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_value_for_money.png?raw=true)
 
 The above summaries confirm what the models are telling us.
 
