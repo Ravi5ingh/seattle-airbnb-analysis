@@ -10,12 +10,7 @@ def generate_kml_for(df, output_file_name):
     :param df: The data frame with coordinate data
     :return:
     """
-
-    loc_df = pd.DataFrame()
-    loc_df['latitude'] = df['latitude']
-    loc_df['longitude'] = df['longitude']
-    loc_df = loc_df.dropna()
-
+    
     # This constructs the KML document from the CSV file.
     kmlDoc = xml.dom.minidom.Document()
 
@@ -25,9 +20,9 @@ def generate_kml_for(df, output_file_name):
     documentElement = kmlDoc.createElement('Document')
     documentElement = kmlElement.appendChild(documentElement)
 
-    for index, row in loc_df.iterrows():
+    for index, row in df.iterrows():
         # KML, in its' infinite retardation, expects 'longitude, latitude'
-        coordinates = str(row['longitude']) + ',' + str(row['latitude'])
+        coordinates = row['longitude'] + ',' + row['latitude']
         placemarkElement = append_coordinate_to(kmlDoc, coordinates)
         documentElement.appendChild(placemarkElement)
     kmlFile = open(output_file_name, 'wb')
