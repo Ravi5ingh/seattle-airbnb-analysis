@@ -10,7 +10,7 @@ This is what it looks like:
 
 ![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/CRISP-DM.png?raw=true)
 
-At a high level, CRISP-DM is a cyclical process that tells you how to systematically process your data to derive value. One cycle is basically one data processing pipeline that begins with a question and ends with an answer. There is also an optional step for deployment where that makes sense. If you want a detailed explanation, you can read all about this [here](ftp://ftp.software.ibm.com/software/analytics/spss/support/Modeler/Documentation/14/UserManual/CRISP-DM.pdf).
+At a high level, CRISP-DM is a cyclical process that tells you how to systematically process your data to derive value. One cycle is basically one data processing pipeline that begins with a question and ends with an answer. There is also an optional step for deployment where this makes sense. If you want a detailed explanation, you can read all about this [here](ftp://ftp.software.ibm.com/software/analytics/spss/support/Modeler/Documentation/14/UserManual/CRISP-DM.pdf).
 
 ## Question 1
 What I've done here is to run through the cycle three times in order to answer three questions I
@@ -115,7 +115,7 @@ The following are the box plots:
 All the features are positively correlated with price which means, as their value goes up, so does price.
 
 ### Data Preparation
-Following this insight, I did what appeared logic to me. I tried to fit a simple model to this data so I could predict a property's price based on the 5 columns in the previous section.
+Following this insight, I did what appeared logical to me. I tried to fit a simple model to this data so I could predict a property's price based on the 5 columns in the previous section.
 
 Data preparation in this case is straightforward. The first thing I did is put the price values into buckets. This makes sense given that the data clearly has a many-to-one relationship *(**eg.** multiple property prices for 3 bedrooms)*. I experimented with different bucket sizes before settling on 50. The next step is to pick out the columns and normalize them. I did this and created a new csv called 'pricing_model_train.csv'
 
@@ -137,7 +137,7 @@ Based on this insight, I guessed that if I trained the model on the most strongl
 * 1 input model precision: 53.0%
 
 ### Deployment
-Depending on the business context, if the number above are good enough, in theory this could be deployed on Airbnb's website to provide suggestions to prospective landlords with regards to how much they should price the propery for.
+Depending on the business context, if the numbers above are good enough, in theory this could be deployed on Airbnb's website to provide suggestions to prospective landlords with regards to how much they should price the propery for.
 
 ## Question 3
 For the third CRISP-DM cycle, I decided I wanted to include an additional data set to do some comparative analysis. There is another data set of Airbnb listings and bookings for Boston available [here](https://www.kaggle.com/airbnb/boston/data) that is in the same format as this data set for Seattle. This is very convenient as it will make data understanding and preparation very simple. What I'd like to understand this time is how the apartments in Seattle compare with the ones in Boston

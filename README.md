@@ -194,7 +194,7 @@ The following are these plots:
 As we can see, the accommodates column has the cleanest correlation
 
 ### Data Preparation
-Following this insight, I did what appeared logic to me. I tried to fit a simple model to this data so I could
+Following this insight, I did what appeared logical to me. I tried to fit a simple model to this data so I could
 predict a property's price based on the 5 columns in the previous section. I will briefly run through what I did
 before explaining why this was mostly futile.
 
@@ -343,3 +343,15 @@ If I had more time, the next thing I would like to do is explore the geo-spatial
 
 ### Business & Data Understanding
 Question: How does the distance from the center affect property price?
+
+We have the coordinate data so in theory we should be able to find the straight-line distance from any property to the center and check its' effect on price.
+
+To explore the data further, I wrote some code to take all the listings in Seattle with exact locations, pick out a sample of 2000 listings (because Google Maps can't handle more) and generate a KML file. (A KML file is a visualization meta-data file understood by Google Maps. This can be used to create maps rendered in a customized way)
+
+The following is the map I got:
+
+![](viz/SeattleListingMap.png)
+
+The properties are spread across Seattle pretty evenly. The next step is to calculate distance from center for every property.
+
+
