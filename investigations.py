@@ -1,7 +1,54 @@
+from util import *
+
 import pandas as pd
 import seaborn as sns
+import xml.dom.minidom
 
-from util import *
+def generate_kml_for(df, output_file_name):
+    """
+    Generate a KML file based on the coordinate data in the data frame provided
+    :param df: The data frame with coordinate data
+    :return:
+    """
+
+    loc_df = pd.DataFrame()
+    loc_df['latitude'] = df['latitude']
+    loc_df['longitude'] = df['longitude']
+    loc_df = loc_df.dropna()
+
+    # This constructs the KML document from the CSV file.
+    kmlDoc = xml.dom.minidom.Document()
+
+    kmlElement = kmlDoc.createElementNS('http://earth.google.com/kml/2.2', 'kml')
+    kmlElement.setAttribute('xmlns', 'http://earth.google.com/kml/2.2')
+    kmlElement = kmlDoc.appendChild(kmlElement)
+    documentElement = kmlDoc.createElement('Document')
+    documentElement = kmlElement.appendChild(documentElement)
+
+    for index, row in loc_df.iterrows():
+        # KML, in its' infinite retardation, expects 'longitude, latitude'
+        coordinates = str(row['longitude']) + ',' + str(row['latitude'])
+        placemarkElement = append_coordinate_to(kmlDoc, coordinates)
+        documentElement.appendChild(placemarkElement)
+    kmlFile = open(output_file_name, 'wb')
+    kmlFile.write(kmlDoc.toprettyxml('  ', newl='\n', encoding='utf-8'))
+
+
+def append_coordinate_to(kml_doc, coordinates):
+    """
+    Given an XML document, and coordinates, append the coordinates to the XML doc in KML format
+    :param kml_doc: The XML document which is actually a KML document being built
+    :param coordinates: The coordinates in the format 'longitude, latitude'
+    :return: Return the created XML element
+    """
+    placemarkElement = kml_doc.createElement('Placemark')
+
+    pointElement = kml_doc.createElement('Point')
+    placemarkElement.appendChild(pointElement)
+    coorElement = kml_doc.createElement('coordinates')
+    coorElement.appendChild(kml_doc.createTextNode(coordinates))
+    pointElement.appendChild(coorElement)
+    return placemarkElement
 
 def seattle_boston_compare(y):
     """
