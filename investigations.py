@@ -10,7 +10,7 @@ def generate_kml_for(df, output_file_name):
     :param df: The data frame with coordinate data
     :return:
     """
-    
+
     # This constructs the KML document from the CSV file.
     kmlDoc = xml.dom.minidom.Document()
 

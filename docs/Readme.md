@@ -124,7 +124,7 @@ I used machine learning to model the relationship between the inputs and output.
 
 ![](../viz/jupyter/confusion_matrix_labelled.png)
 
-The confusion matrix above is a way to quantify the merit of a model. It basically shows how many times the trained model predicted the price correctly vs. incorrectly. For eg. the value at the third row and third column is 90. This means that, there are 90 instances where the model correctly predicted that a property is between $40-$60. The value at the fifth row and third column is 15. This means that in 15 instances the model predicted a price of $40-$60 but it was actually $80-$100. 
+The confusion matrix above is a way to quantify the merit of a model. It basically shows how many times the trained model predicted the price correctly vs. incorrectly. For eg. the value at the third row and third column is 90. This means that, there are 90 instances where the model correctly predicted that a property is between $150-$200. The value at the fifth row and third column is 15. This means that in 15 instances the model predicted a price of $150-$200 but it was actually $250-$300. 
 
 This confusion matrix is not as good as I was expecting it to be but it was the best I could get despite spending some time tinkering with the training parameters. Upon further research, I came across why this was.
 
