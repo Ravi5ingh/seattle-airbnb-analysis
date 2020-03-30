@@ -179,7 +179,7 @@ A cursory glance at the above charts indicates that the properties in Boston are
 | | |
 |:-------------------------:|:-------------------------:|
 ![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_peopleaccommodated.png?raw=true)|![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_bathrooms.png?raw=true)
-![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_bedrooms.png?raw=true)|![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_beds.png?raw=true)
+![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_bedrooms.png?raw=true)|![](https://github.com/Ravi5ingh/seattle-airbnb-analysis/blob/master/viz/jupyter/seattle_vs_boston_beds.png?raw=true)|
 *(**Note:** I created a redundant x-axis because seaborn doesn't like to plot violin charts without one)*
 
 If one looks carefully at the charts above, it will become apparent that Boston generally has more properties at the smaller end and fewer at the larger end of the property size spectrum. The conclusion that I derive from that is that properties in Boston are generally smaller.
