@@ -118,7 +118,11 @@ from scipy import stats
 
 # plot_seattle_vs_boston_listing_specs()
 
-# listings = read_csv('data/listings.csv')
+# show_seattle_value_for_money()
+# show_boston_value_for_money()
+
+show_seattle_average_property_specs()
+show_boston_average_property_specs()
 
 # listings = pd.read_csv('data/listings.csv', dtype={'longitude': str, 'latitude': str})
 #

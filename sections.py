@@ -1,4 +1,5 @@
 from util import *
+from statistics import *
 from investigations import *
 from sklearn.neural_network import MLPClassifier
 
@@ -8,6 +9,85 @@ from sklearn.model_selection import *
 from sklearn.metrics import confusion_matrix
 
 import seaborn as sns
+
+def show_boston_average_property_specs():
+    """
+    Summarizs what the average property in Boston looks like
+    """
+
+    listings = read_csv('data/boston/listings.csv')
+    listings = listings.dropna(subset=['accommodates', 'bathrooms', 'bedrooms', 'beds'])
+
+    num_rows = row_count(listings)
+
+    print('The following are metrics showing the average property in Seattle')
+    print('Average People Accommodated: ' + str(sum(listings['accommodates']) / num_rows))
+    print('Average Bathrooms:' + str(sum(listings['bathrooms']) / num_rows))
+    print('Average Bedrooms:' + str(sum(listings['bedrooms']) / num_rows))
+    print('Average Beds:' + str(sum(listings['beds']) / num_rows))
+
+def show_seattle_average_property_specs():
+    """
+    Summarizs what the average property in Seattle looks like
+    """
+
+    listings = read_csv('data/listings.csv')
+    listings = listings.dropna(subset=['accommodates', 'bathrooms', 'bedrooms', 'beds'])
+
+    num_rows = row_count(listings)
+
+    print('The following are metrics showing the average property in Seattle')
+    print('Average People Accommodated: ' + str(sum(listings['accommodates']) / num_rows))
+    print('Average Bathrooms:' + str(sum(listings['bathrooms']) / num_rows))
+    print('Average Bedrooms:' + str(sum(listings['bedrooms']) / num_rows))
+    print('Average Beds:' + str(sum(listings['beds']) / num_rows))
+
+def show_boston_value_for_money():
+    """
+    Show the value for money you get in Boston
+    """
+
+    listings = read_csv('data/boston/listings.csv')
+    listings = listings.dropna(subset=['accommodates', 'bathrooms', 'bedrooms', 'beds'])
+    listings['price'] = listings['price'].apply(parse_price)
+
+    listings_bathroom = listings[listings['bathrooms'] > 0]
+    listings_bedrooms = listings[listings['bedrooms'] > 0]
+    listings_beds = listings[listings['beds'] > 0]
+
+    price_per_person = mean(listings['price'] / listings['accommodates'])
+    price_per_bathroom = mean(listings_bathroom['price'] / listings_bathroom['bathrooms'])
+    price_per_bedroom = mean(listings_bedrooms['price'] / listings_bedrooms['bedrooms'])
+    price_per_bed = mean(listings_beds['price'] / listings_beds['beds'])
+
+    print('The following are metrics showing the value for money in Boston')
+    print('Price / Person Accommodated: ' + str(price_per_person))
+    print('Price / Bathroom:' + str(price_per_bathroom))
+    print('Price / Bedroom:' + str(price_per_bedroom))
+    print('Price / Bed:' + str(price_per_bed))
+
+def show_seattle_value_for_money():
+    """
+    Show the value for money you get in Seattle
+    """
+
+    listings = read_csv('data/listings.csv')
+    listings = listings.dropna(subset=['accommodates', 'bathrooms', 'bedrooms', 'beds'])
+    listings['price'] = listings['price'].apply(parse_price)
+
+    listings_bathroom = listings[listings['bathrooms'] > 0]
+    listings_bedrooms = listings[listings['bedrooms'] > 0]
+
+    price_per_person = mean(listings['price'] / listings['accommodates'])
+    price_per_bathroom = mean(listings_bathroom['price'] / listings_bathroom['bathrooms'])
+    price_per_bedroom = mean(listings_bedrooms['price'] / listings_bedrooms['bedrooms'])
+    price_per_bed = mean(listings['price'] / listings['beds'])
+
+    print('The following are metrics showing the value for money in Seattle')
+    print('Price / Person Accommodated: ' + str(price_per_person))
+    print('Price / Bathroom:' + str(price_per_bathroom))
+    print('Price / Bedroom:' + str(price_per_bedroom))
+    print('Price / Bed:' + str(price_per_bed))
 
 def plot_seattle_vs_boston_listing_specs():
     """

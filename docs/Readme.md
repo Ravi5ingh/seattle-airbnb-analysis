@@ -191,6 +191,16 @@ The following chart compares the explicitly classified property types in the two
 
 This chart further reinforces this conclusion. Seattle has more full houses and Boston has more private rooms. The shared room category is not big enough to be statistically significant.
 
+After this, I decided to verify the results of our model so I wrote some code to display the average characteristics of the properties in Seattle vs Boston as well as the value for money. The following are the results of the former:
+
+![](../viz/jupyter/seattle_vs_boston_average_property.png)
+
+The following summarizes the value for money for the two cities:
+
+![](../viz/jupyter/seattle_vs_boston_value_for_money.png)
+
+The above summaries confirm what the models are telling us.
+
 ### Evaluation
 To re-iterate the third question was :
 
